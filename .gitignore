@@ -1,6 +1,9 @@
 # (custom) Removing my saves from the repo
 /pure saves/
 
+# (custom) Removing files not needed for uploads
+/src/config.yaml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
