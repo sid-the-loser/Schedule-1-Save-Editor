@@ -62,7 +62,7 @@ if os.path.isfile(program_config):
         debug_message(f"debug_mode = {config_file_data['debug_mode']}")
         debug_mode = config_file_data["debug_mode"]
         if not debug_mode:
-            print("Stopped priting debug messages!")
+            print(f"Stopped priting debug messages! Since debug mode is turned off in the config. To change this, go to: {program_config}")
 
             # rest of the config variables go here!
     
@@ -73,6 +73,12 @@ if os.path.isfile(program_config):
             yaml.dump(default_config, f)
             f.close()
             debug_message("Config updated! Using default config for this session.")
+
+        debug_message("Printing current config info...")
+        debug_message(f"debug_mode = {config_file_data['debug_mode']}")
+        debug_mode = config_file_data["debug_mode"]
+        if not debug_mode:
+            print(f"Stopped priting debug messages! Since debug mode is turned off in the config. To change this, go to: {program_config}")
 
 else:
     debug_message("Can't find old config file. Creating a new config file...")
@@ -89,7 +95,7 @@ window.geometry("100x100")
 save_file_selected = None
 window.title(f"Schedule 1 Save Editor - {version} - {save_file_selected}")
 
-debug_message("window initialized")
+debug_message("Window initialized")
 
 def open_save_file(selected_path: str) -> None:
     debug_message("open_save_file called...")
@@ -101,7 +107,7 @@ def open_save_file(selected_path: str) -> None:
         
         if len(initial_file_list) == 1:
             root_file = initial_file_list[0]
-            debug_message()
+            debug_message(f"Root directory within the zip is: {root_file}")
 
         else:
             raise ce.SelectedFileMightNotBeSupported(f"Save file not supported! Expected directory structure within the zip file was wrong. More than one directory detected! Can't process this save file properly!")
@@ -111,7 +117,11 @@ def open_save_file(selected_path: str) -> None:
 
 def open_command() -> None:
     open_path = askopenfilename(title="Select the save zip file...")
-    print(open_path)
+    if isinstance(open_path, str):
+        print("selected")
+
+    else:
+        debug_message("No file selected for opening, keeping the old opened save file...")
 
 def save_command() -> None:
     save_path = asksaveasfilename(title="Save the save file as....")
@@ -144,8 +154,8 @@ main_tabs.pack(expand=1, fill="both")
 
 # frames go here
 
-debug_message("mainloop begun...")
+debug_message("Mainloop has begun...")
 
 window.mainloop()
 
-debug_message("program closed successfully!")
+debug_message("Program closed successfully!")
