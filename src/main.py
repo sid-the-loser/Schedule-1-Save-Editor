@@ -93,6 +93,7 @@ window = Tk()
 window.geometry("100x100")
 
 save_file_selected = None
+save_file_root = ""
 window.title(f"Schedule 1 Save Editor - {version} - {save_file_selected}")
 
 debug_message("Window initialized")
@@ -106,7 +107,7 @@ def open_save_file(selected_path: str) -> None:
         initial_file_list = save_file_selected.namelist()
         
         if len(initial_file_list) == 1:
-            root_file = initial_file_list[0]
+            save_file_root = initial_file_list[0]
             debug_message(f"Root directory within the zip is: {root_file}")
 
         else:
